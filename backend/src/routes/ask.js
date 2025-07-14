@@ -19,7 +19,6 @@ askRouter.post("/", async (req, res) => {
         const entities = result.entities.map((ent) => ent.option || ent.utteranceText);
         const searchTerms = entities.join(" ") || query;
 
-        // 🔍 Step 1: Pinecone Semantic Search
         const topDocs = await semanticSearch(searchTerms, 3); // fetch top 3 docs
         console.log(topDocs);
 
@@ -32,11 +31,9 @@ askRouter.post("/", async (req, res) => {
             });
         }
 
-        // 🧠 Step 2: Generate RAG Answer
         const answer = await generateAnswer(query);
         console.log(answer);
 
-        // 🧾 Step 3: Return result
         res.json({
             intent,
             confidence,
@@ -46,7 +43,7 @@ askRouter.post("/", async (req, res) => {
         });
 
     } catch (err) {
-        console.error("❌ Ask route error:", err);
+        console.error("Ask route error:", err);
         res.status(500).json({ error: "Failed to generate answer." });
     }
 });

@@ -33,7 +33,6 @@ function cleanAndFilterText(text) {
   return filtered.join('\n');
 }
 
-// Try with Cheerio
 function getTextWithCheerio(html) {
   const $ = cheerio.load(html);
   return (
@@ -44,7 +43,6 @@ function getTextWithCheerio(html) {
   );
 }
 
-// Fallback using Puppeteer
 async function getTextWithPuppeteer(url) {
   const browser = await puppeteer.launch({ headless: 'new' });
   const page = await browser.newPage();
@@ -61,16 +59,14 @@ async function getTextWithPuppeteer(url) {
 
     return content;
   } catch (err) {
-    console.error(`❌ Puppeteer failed for ${url}:`, err.message);
+    console.error(`Puppeteer failed for ${url}:`, err.message);
     return '';
   } finally {
     await browser.close();
   }
 }
 
-// Main crawl function
 const crawl = async (url) => {
-  // Skip auth, reset, dynamic garbage links
   if (
     url.includes('/auth/') ||
     url.includes('reset-credentials') ||
@@ -79,18 +75,18 @@ const crawl = async (url) => {
     url.includes('execution=') ||
     url.includes('kc_locale=')
   ) {
-    console.log(`⛔ Skipping auth-related or dynamic URL: ${url}`);
+    console.log(`Skipping auth-related or dynamic URL: ${url}`);
     return;
   }
 
   if (visited.has(url) || !url.startsWith(BASE_DOMAIN)) return;
   visited.add(url);
-  console.log(`🌐 Crawling: ${url}`);
+  console.log(`Crawling: ${url}`);
 
-  // Skip non-HTML files
+  // Skip non-HTML files now
   const ext = path.extname(url).toLowerCase();
   if (ext.match(/\.(pdf|doc|docx|xls|xlsx)$/)) {
-    console.log(`📎 Skipping unsupported file type: ${url}`);
+    console.log(`Skipping unsupported file type: ${url}`);
     return;
   }
 
@@ -102,12 +98,12 @@ const crawl = async (url) => {
     html = data;
     raw = getTextWithCheerio(html);
   } catch (err) {
-    console.warn(`⚠️ Axios failed for ${url}:`, err.message);
+    console.warn(`Axios failed for ${url}:`, err.message);
   }
 
   // If raw is weak, use Puppeteer
   if (!raw || raw.length < 500) {
-    console.log(`🔄 Using Puppeteer for: ${url}`);
+    console.log(`Using Puppeteer for: ${url}`);
     raw = await getTextWithPuppeteer(url);
   }
 
@@ -125,7 +121,7 @@ const crawl = async (url) => {
           tags: [],
         });
       }
-      console.log(`📘 Extracted & stored ${faqs.length} FAQs from: ${url}`);
+      console.log(`Extracted & stored ${faqs.length} FAQs from: ${url}`);
     }
 
     // Save full page if not just faqs or too short
@@ -136,10 +132,10 @@ const crawl = async (url) => {
         type: 'webpage',
         tags: [],
       });
-      console.log(`✅ Stored webpage content from: ${url}`);
+      console.log(`Stored webpage content from: ${url}`);
     }
   } catch (err) {
-    console.error(`❌ Error saving content from ${url}:`, err.message);
+    console.error(`Error saving content from ${url}:`, err.message);
   }
 
   // Recursively crawl internal links
@@ -160,7 +156,6 @@ const crawl = async (url) => {
   }
 };
 
-// Start crawling
 const urlsToStart = [
   `${BASE_DOMAIN}/`,
   `${BASE_DOMAIN}/faq-page`,
@@ -171,5 +166,5 @@ for (const url of urlsToStart) {
   await crawl(url);
 }
 
-console.log('✅ Full crawl complete.');
+console.log('Full crawl complete.');
 await mongoose.disconnect();

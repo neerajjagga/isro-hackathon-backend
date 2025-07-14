@@ -1,7 +1,6 @@
 export function extractFAQs(fullText) {
     const faqBlocks = [];
-
-    // Regex to split at typical FAQ-style questions (start with 'How', 'What', etc.)
+    
     const qnaRegex = /(What|How|Why|When|Where|Which|Can|Is|I)\b[^\n?]{5,100}?\?/g;
 
     const indices = [];

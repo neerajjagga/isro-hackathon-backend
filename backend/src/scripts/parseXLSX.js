@@ -26,7 +26,7 @@ const parseExcel = async (filePath) => {
         tags: [],
     });
 
-    console.log(`✅ Parsed XLSX: ${filePath}`);
+    console.log(`Parsed XLSX: ${filePath}`);
 };
 
 for (const file of files) {

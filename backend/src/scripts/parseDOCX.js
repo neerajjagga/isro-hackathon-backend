@@ -20,7 +20,7 @@ const parseDocx = async (filePath) => {
         tags: [],
     });
 
-    console.log(`✅ Parsed DOCX: ${filePath}`);
+    console.log(`Parsed DOCX: ${filePath}`);
 };
 
 for (const file of files) {

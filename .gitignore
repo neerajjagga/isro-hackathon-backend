@@ -1,3 +1,7 @@
 .env
 model.nlp
 node_modules
+
+entity-extraction-service/venv/
+entity-extraction-service/__pycache__/
+entity-extraction-service/.env

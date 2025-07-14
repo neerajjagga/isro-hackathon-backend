@@ -52,7 +52,7 @@ export const trainNLP = async () => {
 
   await manager.train();
   await manager.save();
-  console.log('✅ NLP training complete');
+  console.log('NLP training complete');
 };
 
 export const loadNLP = async () => {

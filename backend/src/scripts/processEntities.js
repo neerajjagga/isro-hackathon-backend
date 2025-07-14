@@ -26,7 +26,7 @@ async function processAllContent() {
         await doc.save();
     }
 
-    console.log("✅ All documents processed and entities stored.");
+    console.log("All documents processed and entities stored.");
     process.exit(0);
 }
 

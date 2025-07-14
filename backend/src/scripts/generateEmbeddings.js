@@ -21,13 +21,13 @@ const generateEmbeddings = async () => {
 
             doc.embedding = embedding;
             await doc.save();
-            console.log(`✅ Embedded: ${doc._id}`);
+            console.log(`Embedded: ${doc._id}`);
         } catch (err) {
-            console.error(`❌ Failed for ${doc._id}:`, err.message);
+            console.error(`Failed for ${doc._id}:`, err.message);
         }
     }
 
-    console.log('🚀 Embedding complete');
+    console.log('Embedding complete');
     process.exit(0);
 };
 

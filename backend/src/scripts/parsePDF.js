@@ -21,7 +21,7 @@ const parsePDF = async (filePath) => {
         tags: [],
     });
 
-    console.log(`✅ Parsed PDF: ${filePath}`);
+    console.log(`Parsed PDF: ${filePath}`);
 };
 
 for (const file of files) {

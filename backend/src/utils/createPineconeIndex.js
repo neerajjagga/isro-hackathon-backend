@@ -19,9 +19,9 @@ async function createIndex() {
             },
             waitUntilReady: true,
         });
-        console.log(`✅ Index "${indexName}" created.`);
+        console.log(`Index "${indexName}" created.`);
     } else {
-        console.log(`ℹ️ Index "${indexName}" already exists.`);
+        console.log(`Index "${indexName}" already exists.`);
     }
 }
 

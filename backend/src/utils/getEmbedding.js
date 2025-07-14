@@ -9,7 +9,7 @@ export const getEmbedding = async (text) => {
 
   try {
     if (text.length > 8192) {
-      console.warn('⚠️ Text input truncated to 8192 characters');
+      console.warn('Text input truncated to 8192 characters');
       text = text.slice(0, 8192);
     }
 
@@ -25,7 +25,7 @@ export const getEmbedding = async (text) => {
     return paddedEmbedding;
   } catch (error) {
     console.error(
-      '❌ Failed to get embedding from Gemini:',
+      'Failed to get embedding from Gemini:',
       error.response?.status,
       error.response?.data || error.message
     );
